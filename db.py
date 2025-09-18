@@ -1,8 +1,10 @@
-from sqlalchemy import String, Integer, Table, Column, ForeignKey, create_engine
+from sqlalchemy import String, Integer, Table, Column, ForeignKey, create_engine, Date, Float
 from sqlalchemy.orm import Mapped, mapped_column, relationship, DeclarativeBase, sessionmaker
 from typing import List
 from config import DATABASE_URL, TMDB_API_KEY
 import requests
+from datetime import date
+from sqlalchemy.exc import IntegrityError
 
 class Base(DeclarativeBase):
     pass
@@ -26,7 +28,9 @@ class Movie(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     tmdb_id: Mapped[int] = mapped_column(Integer, unique=True, index=True, nullable=False)
     title: Mapped[str] = mapped_column(String(200), nullable=False)
+    release_date: Mapped["date"] = mapped_column(Date, nullable=True)
     poster_path: Mapped[str] = mapped_column(String(200))
+    vote_average: Mapped[float] = mapped_column(Float)
 
     genres: Mapped[List["Genre"]] = relationship(
         secondary=movie_genres, back_populates="movies"
@@ -45,7 +49,6 @@ class Genre(Base):
 def starte_db():
     Base.metadata.create_all(engine)
 
-from sqlalchemy.exc import IntegrityError
 
 def genre_tabelle_fuellen():
     genre_ids = {
@@ -90,7 +93,7 @@ def api_abfrage_TMDB(page: int = 1):
     params = {
         "api_key": TMDB_API_KEY,
         "sort_by": "vote_average.desc",
-        "vote_count.gte": 2000,
+        "vote_count.gte": 5000,
         "page": page,
     }
     response = requests.get(url, params=params)
@@ -106,6 +109,8 @@ def movie_tabelle_fuellen(pages: int = 100):
                 if db.query(Movie).filter_by(tmdb_id=movie_data["id"]).first():
                     continue
 
+                if not movie_data["release_date"]: continue
+
                 genres = []
                 for gid in movie_data.get("genre_ids", []):
                     genre = db.get(Genre, gid)
@@ -116,8 +121,11 @@ def movie_tabelle_fuellen(pages: int = 100):
                 movie = Movie(
                     tmdb_id=movie_data["id"],
                     title=movie_data["title"],
-                    poster_path=movie_data.get("poster_path"),
                     genres=genres,
+                    release_date=date.fromisoformat(movie_data["release_date"]),
+                    vote_average=movie_data["vote_average"],
+                    poster_path=movie_data.get("poster_path"),
+
                 )
                 db.add(movie)
 
@@ -132,16 +140,12 @@ def bootstrap_database(pages: int = 100):
     db = SessionLocal()
     try:
         if db.query(Movie).first():
-            print("✅ Datenbank enthält bereits Filme – kein Seed nötig.")
             return
 
-        print("➡️ Fülle Genres...")
         genre_tabelle_fuellen()
 
-        print(f"➡️ Lade Filme (ca. {pages*20} Stück)...")
         movie_tabelle_fuellen(pages=pages)
 
-        print("✅ Datenbank wurde befüllt!")
     finally:
         db.close()
 

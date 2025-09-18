@@ -1,0 +1,77 @@
+body {
+    font-family: "Courier New";
+    background-color: blueviolet;
+}
+
+
+.film-box {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+
+    padding: 20px;
+    background-color: white;
+
+    overflow-x: auto;       /* falls zu breit */
+    border: 2px dashed black;
+}
+
+
+.Poster {
+    height: 400px;
+    width: auto;
+    object-fit: contain;
+    display: block;
+}
+
+
+.poster-number {
+  position: relative;
+}
+
+.nummer-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  background-color: black;
+  color: white;
+  font-size: 80px;
+  font-weight: bold;
+
+  padding: 4px 8px;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  text-align: center;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+
+.nummer-overlay.erfolg {
+  color: green;
+  font-size: 40px;
+  text-shadow:
+    -2px -2px 0 black,
+     2px -2px 0 black,
+    -2px  2px 0 black,
+     2px  2px 0 black;
+}
+
+
+.nummer-overlay.fehler {
+  color: red;
+  font-size: 40px;
+  text-shadow:
+    -2px -2px 0 black,
+     2px -2px 0 black,
+    -2px  2px 0 black,
+     2px  2px 0 black;
+}
+

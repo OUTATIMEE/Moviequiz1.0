@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie-edge">
+    <link rel="stylesheet" href="{{ url_for('static', filename='startseite.css') }}">
+    <meta charset="UTF-8">
+    <title>Startseite</title>
+</head>
+
+<body>
+<h1>Moviequiz</h1>
+<h2>All genres are on. Click to turn off any you don’t want in the quiz.</h2>
+
+<form action="/start_quiz" method="post">
+
+<div class="genre_button_container">
+<button type="button" class="genre-button">
+  <img src="{{ url_for('static', filename='pictures/action_farbe.png') }}" alt="Action">
+</button>
+
+<button type="button" class="genre-button">
+  <img src="{{ url_for('static', filename='pictures/adventure_farbe.png') }}" alt="Adventure">
+</button>
+
+<button type="button" class="genre-button">
+  <img src="{{ url_for('static', filename='pictures/animation_farbe.png') }}" alt="Animation">
+</button>
+
+<button type="button" class="genre-button">
+  <img src="{{ url_for('static', filename='pictures/comedy_farbe.png') }}" alt="Comedy">
+</button>
+
+<button type="button" class="genre-button">
+  <img src="{{ url_for('static', filename='pictures/crime_farbe.png') }}" alt="Crime">
+</button>
+
+<button type="button" class="genre-button">
+  <img src="{{ url_for('static', filename='pictures/documentary_farbe.png') }}" alt="Documentary">
+</button>
+
+<button type="button" class="genre-button">
+  <img src="{{ url_for('static', filename='pictures/drama_farbe.png') }}" alt="Drama">
+</button>
+
+<button type="button" class="genre-button">
+  <img src="{{ url_for('static', filename='pictures/family_farbe.png') }}" alt="Family">
+</button>
+
+<button type="button" class="genre-button">
+  <img src="{{ url_for('static', filename='pictures/fantasy_farbe.png') }}" alt="Fantasy">
+</button>
+
+<button type="button" class="genre-button">
+  <img src="{{ url_for('static', filename='pictures/history_farbe.png') }}" alt="History">
+</button>
+
+<button type="button" class="genre-button">
+  <img src="{{ url_for('static', filename='pictures/horror_farbe.png') }}" alt="Horror">
+</button>
+
+<button type="button" class="genre-button">
+  <img src="{{ url_for('static', filename='pictures/music_farbe.png') }}" alt="Music">
+</button>
+
+<button type="button" class="genre-button">
+  <img src="{{ url_for('static', filename='pictures/mystery_farbe.png') }}" alt="Mystery">
+</button>
+
+<button type="button" class="genre-button">
+  <img src="{{ url_for('static', filename='pictures/romance_farbe.png') }}" alt="Romance">
+</button>
+
+<button type="button" class="genre-button">
+  <img src="{{ url_for('static', filename='pictures/sci_fi_farbe.png') }}" alt="Science Fiction">
+</button>
+
+<button type="button" class="genre-button">
+  <img src="{{ url_for('static', filename='pictures/thriller_farbe.png') }}" alt="Thriller">
+</button>
+
+<button type="button" class="genre-button">
+  <img src="{{ url_for('static', filename='pictures/tv_movie_farbe.png') }}" alt="TV Movie">
+</button>
+
+<button type="button" class="genre-button">
+  <img src="{{ url_for('static', filename='pictures/war_farbe.png') }}" alt="War">
+</button>
+
+<button type="button" class="genre-button">
+  <img src="{{ url_for('static', filename='pictures/western_farbe.png') }}" alt="Western">
+</button>
+</div>
+
+<button type="submit" class="start-button">
+    <img id="start-button-image" src="{{ url_for('static', filename='pictures/filmklappe_auf.png') }}" alt="Start">
+</button>
+<input type="hidden" id="auswahl-feld" name="genres">
+
+</form>
+
+<script src="{{ url_for('static', filename='startseite.js') }}"></script>
+
+</body>
+</html>

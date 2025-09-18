@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie-edge">
+    <link rel="stylesheet" href="{{ url_for('static', filename='quizseite.css') }}">
+    <meta charset="UTF-8">
+    <script src="{{ url_for('static', filename='quizseite.js') }}" defer></script>
+    <title>Quizseite</title>
+</head>
+<body>
+
+    <h2 id="score-anzeige">Gesamtpunktzahl: 0</h2>
+
+    <div class="film-box">
+
+    <div class="poster-number" id="movie_0_div">
+    <div class="ergebnis-info" id="movie_0_info"></div>
+    <img src="{{ movie_0_poster }}" id="movie_0_poster"
+     alt="movie_0" class="Poster">
+    </div>
+
+    <div class="poster-number" id="movie_1_div">
+    <div class="ergebnis-info" id="movie_1_info"></div>
+    <img src="{{ movie_1_poster }}" id="movie_1_poster"
+     alt="movie_1" class="Poster">
+    </div>
+
+    <div class="poster-number" id="movie_2_div">
+    <div class="ergebnis-info" id="movie_2_info"></div>
+    <img src="{{ movie_2_poster }}" id="movie_2_poster"
+     alt="movie_2" class="Poster">
+    </div>
+
+    <div class="poster-number" id="movie_3_div">
+    <div class="ergebnis-info" id="movie_3_info"></div>
+    <img src="{{ movie_3_poster }}" id="movie_3_poster"
+     alt="movie_3" class="Poster">
+    </div>
+
+    <div class="poster-number" id="movie_4_div">
+    <div class="ergebnis-info" id="movie_4_info"></div>
+    <img src="{{ movie_4_poster }}" id="movie_4_poster"
+     alt="movie_4" class="Poster">
+    </div>
+    </div>
+
+    <form id="auswahlForm" method="POST" action="/auswahl-senden">
+        <input type="hidden" name="auswahl" id="auswahlInput">
+        <button type="submit">Weiter</button>
+    </form>
+
+    <button id="neue-runde-button" style="display: none;">Neue Runde starten</button>
+
+
+</body>
+</html>
+
